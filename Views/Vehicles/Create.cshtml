@@ -1,0 +1,51 @@
+﻿@model TritonExpress.Models.Vehicles
+
+@{
+    ViewData["Title"] = "Add A Vehicle";
+}
+
+<center><h1>Add A New Vehicle</h1></center>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="vehicleName" class="control-label"></label>
+                <input asp-for="vehicleName" class="form-control" />
+                <span asp-validation-for="vehicleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vehicleRegistration" class="control-label"></label>
+                <input asp-for="vehicleRegistration" class="form-control" />
+                <span asp-validation-for="vehicleRegistration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vehicleType" class="control-label"></label>
+                <input asp-for="vehicleType" class="form-control" />
+                <span asp-validation-for="vehicleType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="vehicleModel" class="control-label"></label>
+                <input asp-for="vehicleModel" class="form-control" />
+                <span asp-validation-for="vehicleModel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BranchId" class="control-label"></label>
+                <select asp-for="BranchId" class ="form-control" asp-items="ViewBag.BranchId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Vehicle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index">Back to List</a>
+</div>*@
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

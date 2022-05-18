@@ -1,0 +1,113 @@
+﻿@model IEnumerable<TritonExpress.Models.WayBill>
+
+@{
+    ViewData["Title"] = "WayBills On System";
+}
+
+<center><h1>WayBills On System</h1></center>
+<style>
+
+
+    * {
+        box-sizing: border-box;
+    }
+
+    #myInput {
+        background-image: url('/css/searchicon.png');
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+    }
+
+        #myTable th, #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+            #myTable tr.header, #myTable tr:hover {
+                background-color: #f1f1f1;
+            }
+</style>
+<p>
+    <a class="btn btn-primary"asp-action="Create">Assign A New WayBill</a>
+</p>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Keyword/Numeric Value...">
+<br/>
+<table id="myTable"class="table"style="background-color:white;">
+    <thead>
+        <tr>
+            <th>
+                Assigned To
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.wayBillReference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.totalWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.parcels)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicles.vehicleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.wayBillReference)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.totalWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.parcels)
+            </td>
+
+            <td>
+                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.wayBillId">Update WayBill</a>
+                @*<a asp-action="Details" asp-route-id="@item.wayBillId">Details</a> |*@
+                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.wayBillId">Delete WayBill</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+    function myFunction() {
+        $("#myInput").keyup(function () {
+            var value = this.value.toLowerCase().trim();
+
+            $("table tr").each(function (index) {
+                if (!index) return;
+                $(this).find("td").each(function () {
+                    var id = $(this).text().toLowerCase().trim();
+                    var not_found = (id.indexOf(value) == -1);
+                    $(this).closest('tr').toggle(!not_found);
+                    return not_found;
+                });
+            });
+        });
+    }
+
+</script>
