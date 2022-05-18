@@ -44,11 +44,11 @@
             }
 </style>
 <p>
-    <a class="btn btn-primary"asp-action="Create">Add A Triton Branch</a>
+    <a class="btn btn-primary" asp-action="Create">Add A Triton Branch</a>
 </p>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Keyword/Numeric Value...">
-<br/>
-<table id="myTable"class="table"style="background-color:white;">
+<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search By Keyword/Numeric Value...">
+<br />
+<table id="myTable" class="table" style="background-color:white;">
     <thead>
         <tr>
             <th>
@@ -61,26 +61,27 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.branchName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.location)
-            </td>
-            <td>
-                <a class="btn btn-success"asp-action="Edit" asp-route-id="@item.BranchId">Update Branch Information</a> |
-                @*<a asp-action="Details" asp-route-id="@item.BranchId">Details</a> |*@
-                <a class="btn btn-danger"asp-action="Delete" asp-route-id="@item.BranchId">Delete Branch</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.branchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.location)
+                </td>
+                <td>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.BranchId">Update Branch Information</a> |
+                    @*<a asp-action="Details" asp-route-id="@item.BranchId">Details</a> |*@
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.BranchId">Delete Branch</a>
+                </td>
+            </tr>
+        }
     </tbody>
-</table>
 
+</table>
 <script>
-    function myFunction() {
+    function searchFunction() {
         $("#myInput").keyup(function () {
             var value = this.value.toLowerCase().trim();
 

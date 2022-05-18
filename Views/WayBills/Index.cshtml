@@ -46,7 +46,7 @@
 <p>
     <a class="btn btn-primary"asp-action="Create">Assign A New WayBill</a>
 </p>
-<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search By Keyword/Numeric Value...">
+<input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search By Keyword/Numeric Value...">
 <br/>
 <table id="myTable"class="table"style="background-color:white;">
     <thead>
@@ -94,7 +94,7 @@
 </table>
 
 <script>
-    function myFunction() {
+    function searchFunction() {
         $("#myInput").keyup(function () {
             var value = this.value.toLowerCase().trim();
 
