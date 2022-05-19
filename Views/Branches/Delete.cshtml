@@ -12,24 +12,28 @@
 <center><h3>Are you sure you want to delete this branch?</h3></center>
 <div>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.branchName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.branchName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.location)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.location)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="BranchId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a class="btn btn-info" asp-action="Index">All Branches</a>
-    </form>
-</div>
+    <div class="card">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.branchName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.branchName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.location)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.location)
+                </dd>
+            </dl>
+
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="BranchId" />
+                <input type="submit" value="Delete" class="btn btn-danger" /> |
+                <a class="btn btn-info" asp-action="Index">All Branches</a>
+            </form>
+        </div>
+        </div>
+    </div>
