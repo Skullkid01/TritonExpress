@@ -42,15 +42,19 @@
             #myTable tr.header, #myTable tr:hover {
                 background-color: #f1f1f1;
             }
+
+    .notfound {
+        display: none;
+    }
 </style>
 <p>
-    <a class="btn btn-primary"asp-action="Create">Assign A New WayBill</a>
+    <a class="btn btn-primary" asp-action="Create">Assign A New WayBill</a>
 </p>
 <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search By Keyword/Numeric Value...">
-<br/>
-<table id="myTable"class="table"style="background-color:white;">
+<br />
+<table id="myTable" class="table" style="background-color:white;">
     <thead>
-        <tr>
+        <tr class='table-heading'>
             <th>
                 Assigned To
             </th>
@@ -68,28 +72,32 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vehicles.vehicleRegistration)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.wayBillReference)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.totalWeight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.parcels)
-            </td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicles.vehicleRegistration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.wayBillReference)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalWeight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parcels)
+                </td>
 
-            <td>
-                <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.wayBillId">Update WayBill</a>
-                @*<a asp-action="Details" asp-route-id="@item.wayBillId">Details</a> |*@
-                @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.wayBillId">Delete WayBill</a>*@
-            </td>
+                <td>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.wayBillId">Update WayBill</a>
+                    @*<a asp-action="Details" asp-route-id="@item.wayBillId">Details</a> |*@
+                    @*<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.wayBillId">Delete WayBill</a>*@
+                </td>
+            </tr>
+        }
+        <tr class='no-records' style="display: none;">
+            <td style="color:red; text-align:center; font-style:oblique;" colspan='10'>No Data Found</td>
         </tr>
-}
     </tbody>
 </table>
 
@@ -104,10 +112,20 @@
                     var id = $(this).text().toLowerCase().trim();
                     var not_found = (id.indexOf(value) == -1);
                     $(this).closest('tr').toggle(!not_found);
+
+                    var trSel = $("#myTable tr:not('.no-records, .table-heading'):visible");
+                    if (trSel.length == 0) {
+
+                        $("#myTable").find('.no-records').show();
+                    }
+                    else {
+                        $("#myTable").find('.no-records').hide();
+                    }
+
                     return not_found;
+
                 });
             });
         });
     }
-
 </script>

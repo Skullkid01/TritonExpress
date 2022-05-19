@@ -42,6 +42,10 @@
             #myTable tr.header, #myTable tr:hover {
                 background-color: #f1f1f1;
             }
+
+    .notfound {
+        display: none;
+    }
 </style>
 <p>
     <a class="btn btn-primary" asp-action="Create">Add A Vehicle</a>
@@ -50,7 +54,7 @@
 <br />
 <table id="myTable" class="table" style="background-color:white;">
     <thead>
-        <tr>
+        <tr class='table-heading'>
             <th>
                 @Html.DisplayNameFor(model => model.vehicleName)
             </th>
@@ -97,28 +101,41 @@
 
 
         }
+        <tr class='no-records' style="display: none;">
+            <td style="color:red; text-align:center; font-style:oblique;" colspan='10'>No Data Found</td>
+        </tr>
 
     </tbody>
 </table>
 
 <script>
     function searchFunction() {
-            $("#myInput").keyup(function () {
-                var value = this.value.toLowerCase().trim();
+        $("#myInput").keyup(function () {
+            var value = this.value.toLowerCase().trim();
 
-                $("table tr").each(function (index) {
-                    if (!index) return;
-                    $(this).find("td").each(function () {
-                        var id = $(this).text().toLowerCase().trim();
-                        var not_found = (id.indexOf(value) == -1);
-                        $(this).closest('tr').toggle(!not_found);
-                        return not_found;
-                    });
+            $("table tr").each(function (index) {
+                if (!index) return;
+                $(this).find("td").each(function () {
+                    var id = $(this).text().toLowerCase().trim();
+                    var not_found = (id.indexOf(value) == -1);
+                    $(this).closest('tr').toggle(!not_found);
+
+                    var trSel = $("#myTable tr:not('.no-records, .table-heading'):visible");
+                    if (trSel.length == 0) {
+
+                        $("#myTable").find('.no-records').show();
+                    }
+                    else {
+                        $("#myTable").find('.no-records').hide();
+                    }
+
+                    return not_found;
+
                 });
             });
-        }
-
-    </script>
+        });
+    }
+</script>
 
 
 

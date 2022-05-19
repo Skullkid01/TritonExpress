@@ -8,41 +8,45 @@
 <style>
 
 
-    * {
-        box-sizing: border-box;
-    }
-
-    #myInput {
-        background-image: url('/css/searchicon.png');
-        background-position: 10px 10px;
-        background-repeat: no-repeat;
-        width: 100%;
-        font-size: 16px;
-        padding: 12px 20px 12px 40px;
-        border: 1px solid #ddd;
-        margin-bottom: 12px;
-    }
-
-    #myTable {
-        border-collapse: collapse;
-        width: 100%;
-        border: 1px solid #ddd;
-        font-size: 18px;
-    }
-
-        #myTable th, #myTable td {
-            text-align: left;
-            padding: 12px;
+        * {
+            box-sizing: border-box;
         }
 
-        #myTable tr {
-            border-bottom: 1px solid #ddd;
+        #myInput {
+            background-image: url('/css/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
         }
 
-            #myTable tr.header, #myTable tr:hover {
-                background-color: #f1f1f1;
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+            #myTable th, #myTable td {
+                text-align: left;
+                padding: 12px;
             }
-</style>
+
+            #myTable tr {
+                border-bottom: 1px solid #ddd;
+            }
+
+                #myTable tr.header, #myTable tr:hover {
+                    background-color: #f1f1f1;
+                }
+
+    .notfound {
+        display: none;
+    }
+    </style>
 <p>
     <a class="btn btn-primary" asp-action="Create">Add A Triton Branch</a>
 </p>
@@ -50,7 +54,7 @@
 <br />
 <table id="myTable" class="table" style="background-color:white;">
     <thead>
-        <tr>
+        <tr class='table-heading'>
             <th>
                 @Html.DisplayNameFor(model => model.branchName)
             </th>
@@ -77,6 +81,9 @@
                 </td>
             </tr>
         }
+        <tr class='no-records' style="display: none;">
+            <td style="color:red; text-align:center; font-style:oblique;" colspan='10'>No Data Found</td>
+        </tr>
     </tbody>
 
 </table>
@@ -91,10 +98,20 @@
                     var id = $(this).text().toLowerCase().trim();
                     var not_found = (id.indexOf(value) == -1);
                     $(this).closest('tr').toggle(!not_found);
+
+                    var trSel = $("#myTable tr:not('.no-records, .table-heading'):visible");
+                    if (trSel.length == 0) {
+
+                        $("#myTable").find('.no-records').show();
+                    }
+                    else {
+                        $("#myTable").find('.no-records').hide();
+                    }
+
                     return not_found;
+
                 });
             });
         });
     }
-
 </script>
