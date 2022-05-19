@@ -48,7 +48,7 @@ namespace TritonExpress.Controllers
         // GET: WayBills/Create
         public IActionResult Create()
         {
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "VehicleId", "vehicleName");
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "VehicleId", "vehicleRegistration");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace TritonExpress.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "VehicleId", "vehicleName", wayBill.VehicleId);
+            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "VehicleId", "vehicleRegistration", wayBill.VehicleId);
             return View(wayBill);
         }
 
